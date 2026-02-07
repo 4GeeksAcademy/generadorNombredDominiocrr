@@ -1,18 +1,58 @@
+import "./style.css";
 
-//write your code here
-let pronoun = ['the', 'our', 'her', 'his', 'your'];
-let adj = ['great', 'big', 'small', 'brave', 'kind'];
-let noun = ['jogger', 'racoon', 'table', 'hair', 'dog'];
+// Constantes para generar dominios
+const PRONOUNS = ['the', 'our', 'her', 'his', 'your'];
+const ADJECTIVES = ['great', 'big', 'small', 'brave', 'kind'];
+const NOUNS = ['jogger', 'racoon', 'table', 'hair', 'dog'];
+const EXTENSIONS = ['.com', '.net', '.us', '.io'];
 
-for (let iPronoun = 0; iPronoun < pronoun.length; iPronoun++) {
-    console.log(pronoun[iPronoun]);
+/**
+ * Genera todas las combinaciones posibles de dominios
+ * @returns {Array<string>} Array con todos los dominios generados
+ */
+function generateDomains() {
+    const domains = [];
     
-    for (let iAdj = 0; iAdj < adj.length; iAdj++) {
-        console.log(adj[iAdj]);
-        
-        for (let iNoun = 0; iNoun < noun.length; iNoun++) {
-            console.log(pronoun[iPronoun] + adj[iAdj] + noun[iNoun] + ".com");
+    // Usar for...of es más moderno y legible
+    for (let pronoun of PRONOUNS) {
+        for (let adjective of ADJECTIVES) {
+            for (let noun of NOUNS) {
+                for (let extension of EXTENSIONS) {
+                    // Template literals son mejores que concatenación
+                    const domain = `${pronoun}${adjective}${noun}${extension}`;
+                    domains.push(domain);
+                }
+            }
         }
     }
+    
+    return domains;
 }
+
+/**
+ * Muestra los dominios en el DOM
+ */
+function displayDomains() {
+    const domains = generateDomains();
+    
+    // Crear HTML para cada dominio
+    const domainsHTML = domains.map(domain => 
+        `<div class="domain-item">${domain}</div>`
+    ).join('');
+    
+    const container = document.querySelector('.container-fluid');
+    container.innerHTML = `
+        <h1 class="mt-5">🌐 Domain Name Generator</h1>
+        <p class="lead">Generated <strong>${domains.length}</strong> domain combinations</p>
+        <div class="domain-list mt-4">
+            ${domainsHTML}
+        </div>
+        <div class="fixed-bottom p-4">
+            Made with ❤️ by <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
+        </div>
+    `;
+}
+
+// Ejecutar cuando carga la página
+window.addEventListener('load', displayDomains);
 
