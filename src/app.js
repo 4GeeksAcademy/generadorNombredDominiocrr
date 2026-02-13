@@ -3,16 +3,25 @@
 let pronoun = ['the', 'our', 'her', 'his', 'your'];
 let adj = ['great', 'big', 'small', 'brave', 'kind'];
 let noun = ['jogger', 'racoon', 'table', 'hair', 'dog'];
+let extenxions = ['.com', '.org', '.net', '.es', '.io'];
 
-for (let iPronoun = 0; iPronoun < pronoun.length; iPronoun++) {
-    console.log(pronoun[iPronoun]);
+const divElement = document.getElementById("web");
+const generateDominios = () => {
+    divElement.innerHTML = '';  
     
-    for (let iAdj = 0; iAdj < adj.length; iAdj++) {
-        console.log(adj[iAdj]);
-        
-        for (let iNoun = 0; iNoun < noun.length; iNoun++) {
-            console.log(pronoun[iPronoun] + adj[iAdj] + noun[iNoun] + ".com");
+    for(let elementA of pronoun){
+        for(let elementB of adj){
+            for(let elementC of noun){
+                for(let elementD of extenxions){
+                    const web = elementA + elementB + elementC + elementD;
+                    const newDiv = document.createElement("div");  
+                    newDiv.innerHTML = web;  
+                    newDiv.style.padding = "2px";
+                    divElement.appendChild(newDiv);
+                }
+            }
         }
     }
-}
+};
 
+generateDominios();  
